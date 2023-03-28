@@ -1,11 +1,12 @@
 import { createThisElement, createThisImage } from "../utils/common.js";
 
 export function getUserCardDOM(photographer) {
-    const picture = `assets/photographers/${photographer.portrait}`;
+    const imageName = photographer.portrait.split('.')[0];
+    const picture = `assets/photographers/${imageName}.webp`;
     const article = createThisElement('article', 'photographer__card');
     const img = createThisImage({src: picture, alt: photographer.name});
     const link = createThisElement('a', 'photographer__link');
-    link.href = `photographer.html?name=${photographer.name}`;
+    link.href = `photographer.html?id=${photographer.id}`;
     link.appendChild(img);
     const textContainer = createThisElement('div', 'photographer__text-container');
     const h2 = document.createElement( 'h2' );

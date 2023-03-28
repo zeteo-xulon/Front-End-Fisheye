@@ -1,1 +1,2 @@
-//Mettre le code JavaScript lié à la page photographer.html
+// const photographer = URLSearchParams.get('id');
+// const photographerData = photographers.find(photographer => photographer.id === photographerId);

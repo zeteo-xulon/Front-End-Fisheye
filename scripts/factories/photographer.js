@@ -24,3 +24,8 @@ export function getUserCardDOM(photographer) {
     article.appendChild(textContainer);
     return (article);
 }
+
+
+export function createMediaCardDOM(media){
+
+}

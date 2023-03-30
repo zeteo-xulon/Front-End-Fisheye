@@ -1,10 +1,11 @@
-import { createThisElement, createThisImage } from "../utils/common.js";
+import { createThisElement, CreateThisMedia } from "../utils/common.js";
 
 export function getUserCardDOM(photographer) {
-    const imageName = photographer.portrait.split('.')[0];
-    const picture = `assets/photographers/${imageName}.webp`;
+    const path = "assets/photographers/";
+    const filename = photographer.portrait.split('.')[0];
+    const imageType = photographer.portrait.split('.')[1];
     const article = createThisElement('article', 'photographer__card');
-    const img = createThisImage({src: picture, alt: photographer.name});
+    const img = new CreateThisMedia(path, filename, imageType, 'photographer__image');
     const link = createThisElement('a', 'photographer__link');
     link.href = `photographer.html?id=${photographer.id}`;
     link.appendChild(img);

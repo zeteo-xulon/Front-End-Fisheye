@@ -19,8 +19,8 @@ export class Image extends Media{
         const image = document.createElement('img');
         image.src = `${this.path}${this.filename}.webp`;
         image.alt = this.alt;
-        image.className = this.className;
-        image.id = this.id;
+        this.className? image.className = this.className : "";
+        this.id? image.id = this.id : "";
         return image;
     }
 }
@@ -36,14 +36,16 @@ export class Video extends Media{
         video.alt = this.alt;
         video.autoplay = true;
         video.loop = true;
-        video.className = this.className;
-        video.id = this.id;
+        this.className? video.className = this.className : "";
+        this.id? video.id = this.id : "";
         return video;
     }
 }
 
 export class CreateThisMedia {
     constructor(path, filename, extension, className, id){
+        className? "" : className = null;
+        id? "": id = null;
         switch (extension.toLowerCase()) {
             case 'jpg':
             case 'jpeg':

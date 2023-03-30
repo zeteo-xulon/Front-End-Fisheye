@@ -20,13 +20,33 @@ async function getPhotographerData(id){
     const photographersData = await response.json();
     const photographer = photographersData.photographers.find(p => p.id === id);
     const photographerMedia = photographersData.media.filter(m => m.photographerId === id);
+    const photographerMediaWithCorrectedPath = correctPath(photographerMedia, photographer.name);
 
     const returnedData = { 
         photographer: photographer,
-        media: photographerMedia
+        media: photographerMediaWithCorrectedPath
     };
     return returnedData;
 }
+
+function createImagePath(photographerName){
+    const initialPath = 'assets/images/';
+    const photographerFirstName= photographerName.split(' ')[0];
+    const correctedFirstName = photographerFirstName.replace('-', ' ');
+    const joinedPath = `${initialPath}${correctedFirstName}/`;
+    return joinedPath;
+}
+
+function correctPath(media, photographerName){
+    const correctedMedia = media.map(m => {
+        const initialPath = createImagePath(photographerName);
+        const fullPath = `${initialPath}${m.image}`;
+        m.image = fullPath;
+        return m;
+    });
+    return correctedMedia;
+}
+
 
 function displayPhotographerInfo(photographer){
     const imageName = photographer.portrait.split('.')[0];

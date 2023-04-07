@@ -1,5 +1,14 @@
 export const server = './data/photographers.json';
 
+/**
+ * This class creates an element with the tag passed as argument
+ * @param {String} path - path to the element
+ * @param {String} filename - filename of the element
+ * @param {String} extension - extension of the element
+ * @param {String} className - class of the element
+ * @param {Number} id - id of the element
+ * @returns {Object} - element created
+ * */
 export class Media{
     constructor(path, filename, extension, className, id){
         this.path = path;
@@ -10,6 +19,15 @@ export class Media{
     }
 }
 
+/**
+ * This class creates an image with the tag passed as argument
+ * @param {String} path - path to the image
+ * @param {String} filename - filename of the image
+ * @param {String} extension - extension of the image
+ * @param {String} className - class of the image
+ * @param {Number} id - id of the image
+ * @returns {Object} - image created
+ */
 export class Image extends Media{
     constructor(path, filename, extension, className, id){
         super(path, filename, extension, className, id);
@@ -25,6 +43,15 @@ export class Image extends Media{
     }
 }
 
+/**
+ * This class creates a video with the tag passed as argument
+ * @param {String} path - path to the video
+ * @param {String} filename - filename of the video
+ * @param {String} extension - extension of the video
+ * @param {String} className - class of the video
+ * @param {Number} id - id of the video
+ * @returns {Object} - video created
+ * */
 export class Video extends Media{
     constructor(path, filename, extension, className, id){
         super(path, filename, extension, className, id);
@@ -34,14 +61,25 @@ export class Video extends Media{
         const video = document.createElement('video');
         video.src = `${this.path}${this.filename}.${this.extension}`;
         video.alt = this.alt;
-        video.autoplay = true;
-        video.loop = true;
+        video.controls = true;
+        video.autoplay = false;
+        video.loop = false;
         this.className? video.className = this.className : "";
         this.id? video.id = this.id : "";
         return video;
     }
 }
 
+/**
+ * This class creates a media with the tag passed as argument (image or video)
+ * But it will determine the type of media to create by the extension
+ * @param {String} path - path to the media
+ * @param {String} filename - filename of the media
+ * @param {String} extension - extension of the media
+ * @param {String} className - class of the media
+ * @param {Number}
+ * @returns {Object} - media created
+ * */
 export class CreateThisMedia {
     constructor(path, filename, extension, className, id){
         className? "" : className = null;

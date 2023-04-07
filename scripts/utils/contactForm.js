@@ -38,27 +38,27 @@ function buildModal(photographerName) {
         type: "text",
         name: "firstname",
         id: "firstname",
-        className: "modal__input",
+        className: "modal__form__input",
         required: true,
     });
     const modalFormName = createThisInput({
         type: "text",
         name: "name",
-        className: "modal__input",
+        className: "modal__form__input",
         id: "name",
         required: true,
     });
     const modalFormEmail = createThisInput({
         type: "email",
         name: "email",
-        className: "modal__input",
+        className: "modal__form__input",
         id: "email",
         required: true,
     });
     const modalFormMessage = createThisInput({
         type: "text",
         name: "message",
-        className: "modal__input",
+        className: "modal__form__input modal__form__input--message",
         id: "message",
         required: true,
     });

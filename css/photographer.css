@@ -1,3 +1,6 @@
+body{
+    position: relative;
+}
 main{
     margin: 0px 100px;
 }
@@ -80,12 +83,11 @@ main{
 .contact__modal{
     height: 100%;
     width: 100%;
-    position: absolute;
+    position: fixed;
     display: flex;
     justify-content: center;
     align-items: center;
-    top: 0px;
-    left: 1px;
+    bottom: 0;
     background-color: #ffffffba;
     z-index: 5;
 }
@@ -110,6 +112,17 @@ main{
     width: 100%;
     flex-direction: column;
     align-items: flex-start;
+    
+}
+.modal__form__input {
+    width: 100%;
+    height: 68px;
+    border: none;
+    border-radius: 5px;
+}
+.modal__form__input--message {
+    height: 200px;
+    resize: none;
 }
 .modal__span {
     display: flex;
@@ -127,10 +140,24 @@ main{
     border: 0;
     background: transparent;
 }
+.modal__submit {
+    width: 30%;
+    height: 68px;
+    border: none;
+    border-radius: 5px;
+    background-color: #901C1C;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: .5rem 1rem;
+    margin-top: 1rem;
+    cursor: pointer;
+}
 
 form label {
     color: #312E2E;
     font-size: 36px;
+    width: 100%;
 }
 
 form div {
@@ -141,22 +168,147 @@ form div {
     margin-bottom: 26px;
 }
 
-form input {
+.photograph__portfolio__container{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+ 
+    gap: 2rem;
+    padding: 2rem;
+    background-color: #FAFAFA;
+}
+.media__card {
+    padding: 1rem;
+    border-radius: 5px;
+    background-color: #FAFAFA;
+}
+.media__card__link{
+
+}
+.media__card__media{
     width: 100%;
-    height: 68px;
-    border: none;
+    height: 300px;
+    object-fit: cover;
     border-radius: 5px;
 }
-.footer{
-    position: sticky;
-    z-index: 3;
+.media__text-container{
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
-    width: 100%;
-    height: 50px;
+    margin-top: 1rem;
+    gap: 1rem;
 }
-.footer__container{
+.media__card__title{
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #901C1C;
+}
+.media__likes__icon__heart{
+    width: 1.5rem;
+    height: 1.5rem;
+    cursor: pointer;
+}
+.media__likes{
+    display: flex;
+    gap: .5rem;
+}
+.media__likes__number{
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #901C1C;
+}
+
+/* ======== LIGHTBOX ======== */
+.lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #ffffffba;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.lightbox__container {
+    display: flex;
+    flex-flow: row nowrap;
+    height: 100%;
+    width: 80%;
+    align-items: center;
+    justify-content: space-between;
+}
+.lightbox__left-part {
+    height: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+}
+.lightbox__previous-img {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+.lightbox__central-part {
+    height: 80%;
+    width: 80%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.lightbox__media {
+    height: 100%;
+    width: 100%;
+    background: lightgray;
+    object-fit: cover;
+}
+.lightbox__img-title {
+    color: #901C1C;
+    font-size: 1.5rem;
+}
+.lightbox__right-part {
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+}
+.lightbox__next-img {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+.lightbox__button--close {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    top: 5%;
+    margin: 1rem;
+}
+.lightbox__close-cross {
+    height: 1.5rem;
+}
+
+.arrow{
+    height: 50px;
+    color:#901C1C;
+}
+
+.returned {
+    transform: rotate(180deg);
+}
+/* ======== TOTAL-LIKES ======== */
+
+
+.total-likes__container{
+    position: sticky;
+    bottom: 0px;
+    left: 99%;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -167,6 +319,10 @@ form input {
     width: 20rem;
     height: 3rem;
     margin-right: 2rem;
+}
+.total-likes__heart{
+    width: 1rem;
+    height: 1rem;
 }
 
 .visible {

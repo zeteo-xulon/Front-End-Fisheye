@@ -46,16 +46,42 @@
 
       </div>
 
-      <div id="contact_modal" class="contact__modal invisible"></div>
+      <div class="lightbox invisible" id="lightBox" aria-label="image close-up view">
+        <div class="lightbox__container">
+
+          <aside class="lightbox__left-part">
+            <button class="lightbox__previous-img" id="previousImg">
+              <img class="arrow" src="./assets/icons/chevron-left.svg" alt="flèche gauche">
+            </aside>
+
+          <article class="lightbox__central-part" id="lightBoxCentral">
+            <img src="#" class="lightbox__media" id="lightboxImg" alt="image du portfolio">
+            <p class="lightbox__img-title" id="lightboxImgTitle">## Here come the title</p>
+          </article>
+
+          <aside class="lightbox__right-part">
+            <button class="lightbox__button--close" id="closeLightbox">
+              <img src="./assets/icons/close_red.svg" class="lightbox__close-cross" alt="croix">
+            </button>
+            <button class="lightbox__next-img" id="nextImg">
+              <img src="./assets/icons/chevron-left.svg" class="arrow returned" alt="flèche droite">
+            </button>
+          </aside>
+
+        </article>
+      </div>
+     
 
     </main>
-    <footer class="footer" id="footer">
-      <article class="footer__container">
-        <p class="footer__likes" id="totalLikes"><span class="footer__heart-text">0</span><span class="footer__heart"></span></p>
-        <p class="footer__price-day" id="priceDay"><span class="footer__price" id="footerPrice">0</span> / jour</p>
-      </article>
+    <div id="contact_modal" class="contact__modal invisible"></div>
 
-    </footer>
+    <article class="total-likes__container">
+      <p class="total-likes__likes" ">
+        <span class="total-likes__heart-text" id="totalLikes">0</span>
+        <img src="./assets/icons/heart_black.webp" class="total-likes__heart" alt="coeur">
+      </p>
+      <p class="total-likes__price-day" id="priceDay"><span class="total-likes__price" id="total-likesPrice">0</span> / jour</p>
+    </article>
     
 
     <script type="module" src="/scripts/pages/photographer.js"></script>

@@ -82,7 +82,7 @@ export function createMediaCardDOM(media){
     const likes = createThisElement('p', 'media__likes', null, "");
     const likesNumber = createThisElement('span', 'media__likes__number', null, media.likes);
     const likesIcon = createThisElement('span', 'media__likes__icon', null, "");
-    const heartIcon = new CreateThisMedia('assets/icons/', 'heart_likes_A', 'webp', 'media__likes__icon__heart');
+    const heartIcon = new CreateThisMedia('assets/icons/', 'heart_likes_A', 'webp', 'media__likes__icon__heart', media.id);
     textContainer.appendChild(title);
     textContainer.appendChild(likes);
     likes.appendChild(likesNumber);

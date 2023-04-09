@@ -12,6 +12,7 @@ const lightBoxCentral = document.getElementById("lightBoxCentral");
 const priceDay = document.getElementById("priceDay");
 const totalLikes = document.getElementById("totalLikes");
 let portfolioArray = [];
+let likedOrNotLikedMedia = [];
 
 window.addEventListener("click", (e) => {
     if (e.target.classList.contains("lightbox__close-cross")) {
@@ -19,22 +20,10 @@ window.addEventListener("click", (e) => {
     }
     if(e.target.classList.contains("media__card__media")){
         e.preventDefault();
-        const mediaID = Number(e.target.parentElement.id);
-        const mediaPlusPosition = getMediaAndPosition(mediaID);
-        lightBox.classList.replace('invisible', 'visible');
-        console.log(mediaPlusPosition);
-        lightBoxCentral.innerHTML = "";
-        const mediaPath = mediaPlusPosition.media.image? mediaPlusPosition.media.image : mediaPlusPosition.media.video;
-        const photographer = mediaPath.split('.')[0].split('/')[2];
-        const path = `assets/images/${photographer}/`;
-        const filename = mediaPath.split('.')[0].split('/')[3];
-        const extension = mediaPath.split('.')[1];
-        console.log(path, filename, extension);
-        const media = new CreateThisMedia(path, filename, extension, "lightbox__media", mediaID);
-        const text = createThisElement("p", "lightbox__img-title", "lightboxImgTitle", mediaPlusPosition.media.title);
-        lightBoxCentral.appendChild(media);
-        lightBoxCentral.appendChild(text);
-        
+        return openLightBox(e);
+    }
+    if(e.target.classList.contains("media__likes__icon__heart")){
+        return updateLikes(e);
     }
 });
 
@@ -49,22 +38,26 @@ window.addEventListener("click", (e) => {
  * @param {String} id - id of the photographer
  */
 async function init(id){
-    const photographerData = await getPhotographerData(id);
-    portfolioArray = photographerData.media;
-    const order = document.getElementById("portfolioSelect").value;
-    contactButton.addEventListener("click", () => { displayModal(photographerData.photographer.name) });
-    console.log(photographerData);
-    displayPhotographerInfo(photographerData.photographer);
-    displayMediaCards(photographerData.media, order);
-    const totalOfLikes = photographerData.media.reduce((acc, m) => acc + m.likes, 0);
-    totalLikes.innerText = totalOfLikes;
-    priceDay.innerText = `${photographerData.photographer.price}€/jour`;
-
-    portfolioSelect.addEventListener("change", () => {
+    try {
+        const photographerData = await getPhotographerData(id);
+        portfolioArray = photographerData.media;
         const order = document.getElementById("portfolioSelect").value;
-        portfolioContainer.innerHTML = "";
+        contactButton.addEventListener("click", () => { displayModal(photographerData.photographer.name) });
+        console.log(photographerData);
+        displayPhotographerInfo(photographerData.photographer);
         displayMediaCards(photographerData.media, order);
-    });
+        const totalOfLikes = photographerData.media.reduce((acc, m) => acc + m.likes, 0);
+        totalLikes.innerText = totalOfLikes;
+        priceDay.innerText = `${photographerData.photographer.price}€/jour`;
+        likedOrNotLikedMedia = createArrayForLikedOrNotLikedMedia(photographerData.media);
+        portfolioSelect.addEventListener("change", () => {
+            const order = document.getElementById("portfolioSelect").value;
+            portfolioContainer.innerHTML = "";
+            displayMediaCards(photographerData.media, order);
+        }); 
+    } catch (error) {
+        alert("Une erreur est survenue, veuillez réessayer ultérieurement")
+    }
 }
 
 /**
@@ -88,6 +81,60 @@ async function getPhotographerData(id){
 }
 
 /**
+ * This function creates an array of object with the id of the media and if the media has been liked or not
+ * @param {Array} media - array of media as object
+ * @returns {Array} - array with object containing the id of the media and if the media has been liked or not
+ * */
+function createArrayForLikedOrNotLikedMedia(media){
+    const likedOrNotLikedMedia = [];
+    media.forEach(m => {
+        likedOrNotLikedMedia.push({id: m.id, liked: false});
+    });
+    return likedOrNotLikedMedia;
+}
+
+/**
+ * It increment or decrement the number of likes of a media and the total of likes of the media
+ * @param {Object} e - event
+ * */
+function updateLikes(e){
+    const mediaID = Number(e.target.id);
+    const pointingLikes = e.target.parentElement.parentElement.children[0];
+    let likesNumber = Number(pointingLikes.innerText);
+    let totalOfLikes = Number(totalLikes.innerText);
+    const asBeenLiked = likedOrNotLikedMedia.find(m => m.id === mediaID).liked;
+    if(asBeenLiked){
+        likedOrNotLikedMedia.find(m => m.id === mediaID).liked = false;
+        likesNumber--, totalOfLikes--;
+        e.target.parentElement.parentElement.children[0].innerText = likesNumber;
+        return totalLikes.innerText = totalOfLikes;
+    } else {
+        likedOrNotLikedMedia.find(m => m.id === mediaID).liked = true;
+        likesNumber++, totalOfLikes++;
+        e.target.parentElement.parentElement.children[0].innerText = likesNumber;
+        return totalLikes.innerText = totalOfLikes;
+    }
+
+}
+
+function openLightBox(e){
+    const mediaID = Number(e.target.parentElement.id);
+    const mediaPlusPosition = getMediaAndPosition(mediaID);
+    lightBox.classList.replace('invisible', 'visible');
+    console.log(mediaPlusPosition);
+    lightBoxCentral.innerHTML = "";
+    const mediaPath = mediaPlusPosition.media.image? mediaPlusPosition.media.image : mediaPlusPosition.media.video;
+    const photographer = mediaPath.split('.')[0].split('/')[2];
+    const path = `assets/images/${photographer}/`;
+    const filename = mediaPath.split('.')[0].split('/')[3];
+    const extension = mediaPath.split('.')[1];
+    const media = new CreateThisMedia(path, filename, extension, "lightbox__media", mediaID);
+    const text = createThisElement("p", "lightbox__img-title", "lightboxImgTitle", mediaPlusPosition.media.title);
+    lightBoxCentral.appendChild(media);
+    lightBoxCentral.appendChild(text);
+}
+
+/**
  * It get the media and the position of the media in the portfolioArray from the id of the media clicked
  * @param {Number} id - id of the media
  * @returns {Object} - object containing the media and the position of the media in the portfolioArray
@@ -107,7 +154,6 @@ function displayMediaCards(media, order){
     order? order = order : order = "title";
     const sortedMedia = sortedMedias(media, order);
     portfolioArray = sortedMedia;
-    console.log(sortedMedia);
     sortedMedia.forEach(m => {
         let mediaCard = createMediaCardDOM(m);
         portfolioContainer.appendChild(mediaCard);

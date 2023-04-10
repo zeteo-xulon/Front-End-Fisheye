@@ -88,6 +88,7 @@ main{
     justify-content: center;
     align-items: center;
     bottom: 0;
+    left: 0%;
     background-color: #ffffffba;
     z-index: 5;
 }
@@ -119,6 +120,7 @@ main{
     height: 68px;
     border: none;
     border-radius: 5px;
+    font-size: 1.8rem;  
 }
 .modal__form__input--message {
     height: 200px;
@@ -331,3 +333,8 @@ form div {
 .invisible {
     display: none;
 }
+
+/* ==== Animations ==== */
+.heart { transition: transform 0.2s ease-in-out; }
+.heart:hover { transform: scale(1.2); }
+.heart:active { transform: scale(1); }

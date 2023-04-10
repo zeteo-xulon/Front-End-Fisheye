@@ -17,11 +17,12 @@ import { createThisElement, CreateThisMedia } from "../utils/common.js";
  *    </div>
  * </article>
  */
-export function getUserCardDOM(photographer) {
+export function getPhotographerCardDOM(photographer) {
     const path = "assets/photographers/";
     const filename = photographer.portrait.split('.')[0];
     const imageType = photographer.portrait.split('.')[1];
     const article = createThisElement('article', 'photographer__card');
+    article.tabIndex = photographer.index;
     const img = new CreateThisMedia(path, filename, imageType, 'photographer__image');
     const link = createThisElement('a', 'photographer__link');
     link.href = `photographer.html?id=${photographer.id}`;
@@ -66,6 +67,7 @@ export function getUserCardDOM(photographer) {
  * </article>
  */ 
 export function createMediaCardDOM(media){
+    console.log(media);
     const mediaPath = media.image ? media.image : media.video;
     const photographer = mediaPath.split('.')[0].split('/')[2];
     const path = `assets/images/${photographer}/`;
@@ -76,13 +78,15 @@ export function createMediaCardDOM(media){
     link.href = `#`;
     link.alt = media.title;
     const mediaDOM = new CreateThisMedia(path, filename, extension, 'media__card__media');
+    mediaDOM.setAttribute('tabindex', media.index)
     link.appendChild(mediaDOM);
     const textContainer = createThisElement('div', 'media__text-container');
     const title = createThisElement('h2', 'media__card__title', null, media.title);
     const likes = createThisElement('p', 'media__likes', null, "");
     const likesNumber = createThisElement('span', 'media__likes__number', null, media.likes);
     const likesIcon = createThisElement('span', 'media__likes__icon', null, "");
-    const heartIcon = new CreateThisMedia('assets/icons/', 'heart_likes_A', 'webp', 'media__likes__icon__heart', media.id);
+    const heartIcon = new CreateThisMedia('assets/icons/', 'heart_likes_A', 'webp', 'media__likes__icon__heart heart', media.id);
+    heartIcon.setAttribute('tabindex', media.index+1)
     textContainer.appendChild(title);
     textContainer.appendChild(likes);
     likes.appendChild(likesNumber);

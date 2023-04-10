@@ -25,6 +25,31 @@ window.addEventListener("click", (e) => {
     if(e.target.classList.contains("media__likes__icon__heart")){
         return updateLikes(e);
     }
+    if(e.target.classList.contains("next-media")){
+        return nextImg();
+    }
+    if(e.target.classList.contains("previous-media")){
+        return previousImg();
+    }
+});
+window.addEventListener("keydown", (e) => {
+    const contactModal = document.getElementById("contact_modal");
+    if(e.key === "Spacebar" && e.target.classList.contains("media__likes__icon__heart")){ 
+        e.preventDefault();
+        return updateLikes(e);
+    }
+    if(e.key === "Enter" && e.target.classList.contains("media__likes__icon__heart")){ 
+        e.preventDefault();
+        return updateLikes(e); 
+    }
+    if(e.key === "Enter" && e.target.classList.contains("media__card__media")){
+        e.preventDefault();
+        return openLightBox(e);
+    }
+    if(e.key === "Escape" && lightBox.classList.contains("visible") ){ return lightBox.classList.replace('visible', "invisible"); }
+    if(e.key === "Escape" && contactModal.classList.contains("visible") ){ return contactModal.classList.replace('visible', "invisible"); }
+    if(e.key === "ArrowRight"){ return nextImg(); }
+    if(e.key === "ArrowLeft"){ return previousImg(); }
 });
 
 
@@ -135,6 +160,43 @@ function openLightBox(e){
 }
 
 /**
+ * It change the media displayed in the lightbox to the next media from the portfolio
+ * */
+function nextImg(){
+    const mediaID = Number(lightBoxCentral.children[0].id);
+    const mediaPlusPosition = getMediaAndPosition(mediaID);
+    const nextMedia = mediaPlusPosition.position === portfolioArray.length - 1? portfolioArray[0] : portfolioArray[mediaPlusPosition.position + 1];
+    lightBoxCentral.innerHTML = "";
+    const mediaPath = nextMedia.image? nextMedia.image : nextMedia.video;
+    const photographer = mediaPath.split('.')[0].split('/')[2];
+    const path = `assets/images/${photographer}/`;
+    const filename = mediaPath.split('.')[0].split('/')[3];
+    const extension = mediaPath.split('.')[1];
+    const media = new CreateThisMedia(path, filename, extension, "lightbox__media", nextMedia.id);
+    const text = createThisElement("p", "lightbox__img-title", "lightboxImgTitle", nextMedia.title);
+    lightBoxCentral.appendChild(media);
+    return lightBoxCentral.appendChild(text);
+}
+/**
+ * It change the media displayed in the lightbox to the previous media from the portfolio
+ * */
+function previousImg(){
+    const mediaID = Number(lightBoxCentral.children[0].id);
+    const mediaPlusPosition = getMediaAndPosition(mediaID);
+    const previousMedia = mediaPlusPosition.position === 0? portfolioArray[portfolioArray.length - 1] : portfolioArray[mediaPlusPosition.position - 1];
+    lightBoxCentral.innerHTML = "";
+    const mediaPath = previousMedia.image? previousMedia.image : previousMedia.video;
+    const photographer = mediaPath.split('.')[0].split('/')[2];
+    const path = `assets/images/${photographer}/`;
+    const filename = mediaPath.split('.')[0].split('/')[3];
+    const extension = mediaPath.split('.')[1];
+    const media = new CreateThisMedia(path, filename, extension, "lightbox__media", previousMedia.id);
+    const text = createThisElement("p", "lightbox__img-title", "lightboxImgTitle", previousMedia.title);
+    lightBoxCentral.appendChild(media);
+    return lightBoxCentral.appendChild(text);
+}
+
+/**
  * It get the media and the position of the media in the portfolioArray from the id of the media clicked
  * @param {Number} id - id of the media
  * @returns {Object} - object containing the media and the position of the media in the portfolioArray
@@ -154,7 +216,8 @@ function displayMediaCards(media, order){
     order? order = order : order = "title";
     const sortedMedia = sortedMedias(media, order);
     portfolioArray = sortedMedia;
-    sortedMedia.forEach(m => {
+    sortedMedia.forEach((m,i) => {
+        m.index = (i + 1 )* 10;
         let mediaCard = createMediaCardDOM(m);
         portfolioContainer.appendChild(mediaCard);
     });

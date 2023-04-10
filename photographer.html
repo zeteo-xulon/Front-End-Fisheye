@@ -12,8 +12,8 @@
   <body>
 
     <header>
-      <a href="index.html" >
-        <img src="assets/images/logo.png" class="logo" alt="logo du site" />
+      <a href="index.html" aria-label="lien vers la page d'acceuil" tabindex="1">
+        <img src="assets/images/logo.png" class="logo" alt="logo du site Fisheye" />
       </a>
     </header>
 
@@ -26,8 +26,9 @@
           <p class="photograph__header__tagline" id="photographerTagline"></p>
         </div>
         
-        <button class="photograph__header__contact-button" id="contactButton">Contactez-moi</button>
-
+        <button class="photograph__header__contact-button" id="contactButton" aria-label="Contactez le photographe" tabindex="2">Contactez-moi</button>
+        <div id="contact_modal" class="contact__modal invisible"></div>
+        
         <img src="#" class="photograph__header__image" id="photographerImage" alt="photo du photographe">
       </div>
 
@@ -46,25 +47,25 @@
 
       </div>
 
-      <div class="lightbox invisible" id="lightBox" aria-label="image close-up view">
+      <div class="lightbox invisible" id="lightBox" aria-label="boite permettant de visualiser plus en détail le média séléctionné">
         <div class="lightbox__container">
 
           <aside class="lightbox__left-part">
-            <button class="lightbox__previous-img" id="previousImg">
-              <img class="arrow" src="./assets/icons/chevron-left.svg" alt="flèche gauche">
+            <button class="lightbox__previous-img" id="previousImg" aria-label="média précédente">
+              <img class="arrow previous-media" src="./assets/icons/chevron-left.svg" alt="flèche gauche">
             </aside>
 
           <article class="lightbox__central-part" id="lightBoxCentral">
-            <img src="#" class="lightbox__media" id="lightboxImg" alt="image du portfolio">
+            <img src="#" class="lightbox__media" id="lightboxImg" alt="média séléctionné du portfolio">
             <p class="lightbox__img-title" id="lightboxImgTitle">## Here come the title</p>
           </article>
 
           <aside class="lightbox__right-part">
-            <button class="lightbox__button--close" id="closeLightbox">
+            <button class="lightbox__button--close" id="closeLightbox" aria-label="fermer">
               <img src="./assets/icons/close_red.svg" class="lightbox__close-cross" alt="croix">
             </button>
-            <button class="lightbox__next-img" id="nextImg">
-              <img src="./assets/icons/chevron-left.svg" class="arrow returned" alt="flèche droite">
+            <button class="lightbox__next-img" id="nextImg" aria-label="média suivante">
+              <img src="./assets/icons/chevron-left.svg" class="arrow returned next-media" alt="flèche droite">
             </button>
           </aside>
 
@@ -73,11 +74,11 @@
      
 
     </main>
-    <div id="contact_modal" class="contact__modal invisible"></div>
+    
 
     <article class="total-likes__container">
       <p class="total-likes__likes" ">
-        <span class="total-likes__heart-text" id="totalLikes">0</span>
+        <span class="total-likes__heart-text" id="totalLikes" aria-describedby="Le nombre total de j'aime est de ">0</span>
         <img src="./assets/icons/heart_black.webp" class="total-likes__heart" alt="coeur">
       </p>
       <p class="total-likes__price-day" id="priceDay"><span class="total-likes__price" id="total-likesPrice">0</span> / jour</p>

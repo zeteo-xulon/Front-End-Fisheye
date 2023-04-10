@@ -28,7 +28,9 @@ function buildModal(photographerName) {
     const modalTitle = createThisElement("h2", "modal__title", null, "Contactez-moi");
     const modalPhotographer = createThisElement("p", "modal__photographer", null, photographerName);
     const modalClose = createThisElement("button", "modal__close", null, "");
-    const modalCloseIcon = createThisImage({ src: "./assets/icons/close.svg", alt: "close icon" });
+    modalClose.setAttribute("aria-label", "Fermer la fenêtre");
+    modalClose.setAttribute('tabindex', '3');
+    const modalCloseIcon = createThisImage({ src: "./assets/icons/close.svg", alt: "icone d'une croix" });
     const modalBody = createThisElement("form", "modal__form");
     const modalLabelFirstname = createThisElement("label", "modal__label", null, "Prénom");
     const modalLabelName = createThisElement("label", "modal__label", null, "Nom");
@@ -55,14 +57,20 @@ function buildModal(photographerName) {
         id: "email",
         required: true,
     });
-    const modalFormMessage = createThisInput({
-        type: "text",
-        name: "message",
-        className: "modal__form__input modal__form__input--message",
-        id: "message",
-        required: true,
-    });
+    const modalFormMessage = createThisElement("textarea", "modal__form__input modal__form__input--message", "message", null);
+    modalFormMessage.setAttribute("name", "message");
+    modalFormMessage.setAttribute("required", true);
+    modalFormMessage.setAttribute("placeholder", "Votre message")
+    modalFormFirstname.setAttribute("placeholder", "Entrez votre prénom");
+    modalFormFirstname.setAttribute('tabindex', '4');
+    modalFormName.setAttribute("placeholder", "Entrez votre nom");
+    modalFormName.setAttribute('tabindex', '5');
+    modalFormEmail.setAttribute("placeholder", "Entrez votre email");
+    modalFormEmail.setAttribute('tabindex', '6');
+    modalFormMessage.setAttribute('tabindex', '7');
     const modalFormSubmit = createThisElement("button", "modal__submit", "submitButton", "Envoyer");
+    modalFormSubmit.setAttribute("aria-label", "Envoyer le formulaire");
+    modalFormSubmit.setAttribute('tabindex', '8');
     modalClose.setAttribute("aria-label", "Fermer");
     modalClose.addEventListener("click", closeModal);
     modal.appendChild(modalHeader);

@@ -17,15 +17,17 @@ import { createThisElement, CreateThisMedia } from "../utils/common.js";
  *    </div>
  * </article>
  */
-export function getPhotographerCardDOM(photographer) {
+export function getPhotographerCardDOM(photographer, index) {
+    const indexNumber = index * 10;
     const path = "assets/photographers/";
     const filename = photographer.portrait.split('.')[0];
     const imageType = photographer.portrait.split('.')[1];
     const article = createThisElement('article', 'photographer__card');
-    article.tabIndex = photographer.index;
+    article.tabIndex = indexNumber;
     const img = new CreateThisMedia(path, filename, imageType, 'photographer__image');
     const link = createThisElement('a', 'photographer__link');
     link.href = `photographer.html?id=${photographer.id}`;
+    link.tabIndex = indexNumber + 1;
     link.appendChild(img);
     const textContainer = createThisElement('div', 'photographer__text-container');
     const h2 = document.createElement( 'h2' );
@@ -67,7 +69,6 @@ export function getPhotographerCardDOM(photographer) {
  * </article>
  */ 
 export function createMediaCardDOM(media){
-    console.log(media);
     const mediaPath = media.image ? media.image : media.video;
     const photographer = mediaPath.split('.')[0].split('/')[2];
     const path = `assets/images/${photographer}/`;
@@ -77,7 +78,7 @@ export function createMediaCardDOM(media){
     const link = createThisElement('a', 'media__card__link', media.id);
     link.href = `#`;
     link.alt = media.title;
-    const mediaDOM = new CreateThisMedia(path, filename, extension, 'media__card__media');
+    const mediaDOM = new CreateThisMedia(path, filename, extension, 'media__card__media', media.id, media.title);
     mediaDOM.setAttribute('tabindex', media.index)
     link.appendChild(mediaDOM);
     const textContainer = createThisElement('div', 'media__text-container');
@@ -85,7 +86,7 @@ export function createMediaCardDOM(media){
     const likes = createThisElement('p', 'media__likes', null, "");
     const likesNumber = createThisElement('span', 'media__likes__number', null, media.likes);
     const likesIcon = createThisElement('span', 'media__likes__icon', null, "");
-    const heartIcon = new CreateThisMedia('assets/icons/', 'heart_likes_A', 'webp', 'media__likes__icon__heart heart', media.id);
+    const heartIcon = new CreateThisMedia('assets/icons/', 'heart_likes_A', 'webp', 'media__likes__icon__heart heart', media.id, "icône de coeur");
     heartIcon.setAttribute('tabindex', media.index+1)
     textContainer.appendChild(title);
     textContainer.appendChild(likes);

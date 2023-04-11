@@ -142,11 +142,14 @@ function updateLikes(e){
 
 }
 
+/**
+ * It displays the lighbox containing the media and the title of the media
+ * @param {Object} e - event
+ * */
 function openLightBox(e){
     const mediaID = Number(e.target.parentElement.id);
     const mediaPlusPosition = getMediaAndPosition(mediaID);
     lightBox.classList.replace('invisible', 'visible');
-    console.log(mediaPlusPosition);
     lightBoxCentral.innerHTML = "";
     const mediaPath = mediaPlusPosition.media.image? mediaPlusPosition.media.image : mediaPlusPosition.media.video;
     const photographer = mediaPath.split('.')[0].split('/')[2];

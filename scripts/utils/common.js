@@ -10,12 +10,13 @@ export const server = './data/photographers.json';
  * @returns {Object} - element created
  * */
 export class Media{
-    constructor(path, filename, extension, className, id){
+    constructor(path, filename, extension, className, id, title){
         this.path = path;
         this.filename = filename;
         this.extension = extension;
         this.className = className;
         this.id = id;
+        this.title = title;
     }
 }
 
@@ -29,9 +30,9 @@ export class Media{
  * @returns {Object} - image created
  */
 export class Image extends Media{
-    constructor(path, filename, extension, className, id){
-        super(path, filename, extension, className, id);
-        this.alt = filename;
+    constructor(path, filename, extension, className, id, title){
+        super(path, filename, extension, className, id, title);
+        this.alt = title;
     }
     display(){
         const image = document.createElement('img');
@@ -53,9 +54,9 @@ export class Image extends Media{
  * @returns {Object} - video created
  * */
 export class Video extends Media{
-    constructor(path, filename, extension, className, id){
-        super(path, filename, extension, className, id);
-        this.alt = filename;
+    constructor(path, filename, extension, className, id, title){
+        super(path, filename, extension, className, id, title);
+        this.alt = title;
     }
     play(){
         const video = document.createElement('video');
@@ -81,7 +82,7 @@ export class Video extends Media{
  * @returns {Object} - media created
  * */
 export class CreateThisMedia {
-    constructor(path, filename, extension, className, id){
+    constructor(path, filename, extension, className, id, title){
         className? "" : className = null;
         id? "": id = null;
         switch (extension.toLowerCase()) {
@@ -89,11 +90,11 @@ export class CreateThisMedia {
             case 'jpeg':
             case 'webp':
             case 'png':
-              const image = new Image(path, filename, extension, className, id);
+              const image = new Image(path, filename, extension, className, id, title);
               return image.display();
             case 'mp4':
             case 'mov':
-              const video = new Video(path, filename, extension, className, id);
+              const video = new Video(path, filename, extension, className, id, title);
               return video.play();
             default:
               throw new Error(`Type de média invalide : ${extension}`);

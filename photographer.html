@@ -32,7 +32,7 @@
         <img src="#" class="photograph__header__image" id="photographerImage" alt="photo du photographe">
       </div>
 
-      <div class="photograph__portfolio" id="photographerPortfolio">
+      <div class="photograph__portfolio" id="photographerPortfolio" aria-live="polite">
         <header class="photograph__portfolio__menu-bar">
 
           <h2 class="portfolio__menu-title">Trier par</h2>
@@ -53,11 +53,12 @@
           <aside class="lightbox__left-part">
             <button class="lightbox__previous-img" id="previousImg" aria-label="média précédente">
               <img class="arrow previous-media" src="./assets/icons/chevron-left.svg" alt="flèche gauche">
-            </aside>
+            </button>
+          </aside>
 
           <article class="lightbox__central-part" id="lightBoxCentral">
             <img src="#" class="lightbox__media" id="lightboxImg" alt="média séléctionné du portfolio">
-            <p class="lightbox__img-title" id="lightboxImgTitle">## Here come the title</p>
+            <h2 class="lightbox__img-title" id="lightboxImgTitle">## Here come the title</<i class="fas fa-h2    "></i>>
           </article>
 
           <aside class="lightbox__right-part">
@@ -69,7 +70,6 @@
             </button>
           </aside>
 
-        </article>
         </div>
       </div>
      
@@ -79,7 +79,14 @@
 
     <article class="total-likes__container">
       <p class="total-likes__likes">
-        <span class="total-likes__heart-text" id="totalLikes" aria-describedby="Le nombre total de j'aime est de ">0</span>
+        <span 
+        class="total-likes__heart-text" 
+        id="totalLikes" 
+        aria-describedby="Le nombre total de j'aime est de"  
+        role="text" 
+        aria-live="polite">
+        0
+        </span>
         <img src="./assets/icons/heart_black.webp" class="total-likes__heart" alt="coeur">
       </p>
       <p class="total-likes__price-day" id="priceDay"><span class="total-likes__price" id="total-likesPrice">0</span> / jour</p>

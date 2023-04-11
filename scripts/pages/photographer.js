@@ -1,6 +1,7 @@
 import { displayModal } from "../utils/contactForm.js";
 import { createMediaCardDOM } from "../factories/photographer.js";
 import { CreateThisMedia, createThisElement } from "../utils/common.js";
+import { server } from "../utils/common.js";
 
 // This is the page for a single photographer
 const searchParams = new URLSearchParams(window.location.search);
@@ -92,7 +93,7 @@ async function init(id){
  * */
 async function getPhotographerData(id){
     id = Number(id);
-    const response = await fetch('../data/photographers.json');
+    const response = await fetch(server);
     const photographersData = await response.json();
     const photographer = photographersData.photographers.find(p => p.id === id);
     const photographerMedia = photographersData.media.filter(m => m.photographerId === id);

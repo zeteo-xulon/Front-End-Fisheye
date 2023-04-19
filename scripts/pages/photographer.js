@@ -157,7 +157,8 @@ function openLightBox(e){
     const path = `assets/images/${photographer}/`;
     const filename = mediaPath.split('.')[0].split('/')[3];
     const extension = mediaPath.split('.')[1];
-    const media = new CreateThisMedia(path, filename, extension, "lightbox__media", mediaID);
+    const title = mediaPlusPosition.media.title;
+    const media = new CreateThisMedia(path, filename, extension, "lightbox__media", mediaID, title);
     const text = createThisElement("p", "lightbox__img-title", "lightboxImgTitle", mediaPlusPosition.media.title);
     lightBoxCentral.appendChild(media);
     lightBoxCentral.appendChild(text);
@@ -176,7 +177,7 @@ function nextImg(){
     const path = `assets/images/${photographer}/`;
     const filename = mediaPath.split('.')[0].split('/')[3];
     const extension = mediaPath.split('.')[1];
-    const media = new CreateThisMedia(path, filename, extension, "lightbox__media", nextMedia.id);
+    const media = new CreateThisMedia(path, filename, extension, "lightbox__media", nextMedia.id, nextMedia.title);
     const text = createThisElement("p", "lightbox__img-title", "lightboxImgTitle", nextMedia.title);
     lightBoxCentral.appendChild(media);
     return lightBoxCentral.appendChild(text);
@@ -194,7 +195,7 @@ function previousImg(){
     const path = `assets/images/${photographer}/`;
     const filename = mediaPath.split('.')[0].split('/')[3];
     const extension = mediaPath.split('.')[1];
-    const media = new CreateThisMedia(path, filename, extension, "lightbox__media", previousMedia.id);
+    const media = new CreateThisMedia(path, filename, extension, "lightbox__media", previousMedia.id, previousMedia.title);
     const text = createThisElement("p", "lightbox__img-title", "lightboxImgTitle", previousMedia.title);
     lightBoxCentral.appendChild(media);
     return lightBoxCentral.appendChild(text);

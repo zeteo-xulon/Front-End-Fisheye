@@ -24,7 +24,7 @@ export function getPhotographerCardDOM(photographer, index) {
     const imageType = photographer.portrait.split('.')[1];
     const article = createThisElement('article', 'photographer__card');
     article.tabIndex = indexNumber;
-    const img = new CreateThisMedia(path, filename, imageType, 'photographer__image');
+    const img = new CreateThisMedia(path, filename, imageType, 'photographer__image', null, photographer.name);
     const link = createThisElement('a', 'photographer__link');
     link.href = `photographer.html?id=${photographer.id}`;
     link.tabIndex = indexNumber + 1;
